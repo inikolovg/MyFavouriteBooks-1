@@ -41,7 +41,7 @@ class BooksController < ApplicationController
     
     def create
         params.require(:book)
-        permitted = params[:book].permit(:title,:genre,:publish_date,:isbn,:description)
+        permitted = params[:book].permit(:title,:genre,:publish_date,:isbn,:description,:author)
         @book = Book.new(permitted)
         if @book.save
           flash[:notice] = "#{@book.title} was successfully created."
@@ -58,7 +58,7 @@ class BooksController < ApplicationController
     def update
         @book = Book.find params[:id]
         params.require(:book)
-        permitted = params[:book].permit(:title,:genre,:publish_date,:isbn,:description)
+        permitted = params[:book].permit(:title,:genre,:publish_date,:isbn,:description,:author)
         if @book.update_attributes(permitted)
           flash[:notice] = "#{@book.title} was successfully updated."
           redirect_to book_path(@book)
@@ -76,8 +76,8 @@ class BooksController < ApplicationController
     
     def search_similar_books 
         @book = Book.find(params[:id])
-        if @book.isbn.nil? || @book.isbn.empty?
-          flash[:warning]= "'#{@book.title}' has no isbn info"
+        if @book.author.nil? || @book.author.empty?
+          flash[:warning]= "'#{@book.title}' has no author info"
           redirect_to books_path
         else
           @books = Book.similar_books(@book)

@@ -11,6 +11,9 @@
   = label :book, :title, 'Title'
   = text_field :book, 'title'
   
+  = label :book, :author, 'Author'
+  = text_field :book, :author
+  
   = label :book, :description, 'Description'
   = text_field :book, :description
 
@@ -23,4 +26,4 @@
   = label :book, :isbn, 'ISBN'
   = number_field :book, :isbn
 
-  = submit_tag 'Save Changes'
+  = submit_tag 'Update Book Info'
